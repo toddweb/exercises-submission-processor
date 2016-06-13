@@ -1,3 +1,4 @@
+#Submission Processor Coding Exercise
 Imagine that you're working on the C# submission processing code at companyobfuscated. Let's say that our current parser only supports CSV files, but due to popular demand we want to support Excel files.
 
 Please write code that will convert a user's uploaded Excel submission file to a CSV formatted submission file that our existing parser will understand. You can use any NuGet package that has a permissive license for use in a commercial project.
