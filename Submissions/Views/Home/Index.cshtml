@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Submissions";
+}
+
+@model Submissions.Models.SubmissionsModel
+
+<h2>Submissions</h2>
+
+<div class="row">
+    <div class="col-lg-8">
+        <h3>Past submissions</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>File</th>
+                    <th>Entries</th>
+                    <th>Date Submitted</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var submission in Model.Submissions)
+                {
+                    <tr>
+                        <td>@submission.Filename</td>
+                        <td>@submission.Entries.Count()</td>
+                        <td>@submission.DateSubmitted</td>
+                        <td>@Html.ActionLink("Download .csv", "downloadcsv", "home", new { submissionId = submission.Id }, null)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-4">
+        <h3>Upload new submission</h3>
+
+        @using (Html.BeginForm("index", "home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="form-group">
+                <label for="file">Submission file</label>
+                <input type="file" name="file" accept=".xls,.xlsx" />
+                <p class="help-block"><strong>Note:</strong> file format must have a header with the following fields only: Name,Details</p>
+            </div>
+            <button class="btn btn-primary" type="submit">Upload</button>
+            <p class="has-error">
+                @if (Model.ValidationMessages != null)
+                {
+                    foreach (var message in Model.ValidationMessages)
+                    {
+                    <text>@message</text>
+                    }
+                }
+            </p>
+        }
+    </div>
+</div>
